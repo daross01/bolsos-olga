@@ -1,0 +1,8 @@
+- [x] Load catalog photos from the existing public/productos files.
+- [x] Remove category filters while preserving the column selector.
+- [x] Replace generic site titles with Bolsos Olga.
+- [x] Verify catalog photos, columns, and product popups.
+- [x] Replace the favicon with the uploaded SVG converted to ICO and provide a download.
+- [x] Add CSV availability, visibility, and photo-folder controls.
+- [x] Show the unavailable-model message and swipeable product gallery.
+- [x] Test catalog rules and verify the product popup on desktop and mobile.
