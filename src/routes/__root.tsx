@@ -108,7 +108,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       {
         async: true,
-        src: "https://www.googletagmanager.com/gtm.js?id=G-ZLFM8NBEGH",
+        src: "https://www.googletagmanager.com/gtm.js?id=G-37E7T17G3E",
       },
       {
         children: `
