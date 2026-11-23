@@ -4,23 +4,52 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 import { ProductImage } from "./ProductImage";
 import { ProductGallery } from "./ProductGallery";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const buttonCls =
   "h-auto whitespace-normal rounded-full px-4 py-3 text-center text-xs uppercase tracking-[0.12em]";
 
-export function ProductCard({ product, eager }: { product: Product; eager?: boolean }) {
+export type Columns = 1 | 2 | 3;
+
+export function ProductCard({
+  product,
+  eager,
+  cols = 1,
+}: {
+  product: Product;
+  eager?: boolean;
+  cols?: Columns;
+}) {
   const available = isAvailable(product);
   return (
     <Dialog>
-      <DialogTrigger className="group block w-full text-left">
+      <DialogTrigger aria-label={product.name} className="group block w-full text-left">
         <ProductImage product={product} eager={eager ?? false} className="transition-opacity group-hover:opacity-90" />
-        <div className="mt-3 flex items-start justify-between gap-3 text-sm">
-          <h3 className="font-normal">{product.name}</h3>
-          <span className="shrink-0">{formatPrice(product.price)}</span>
-        </div>
-        <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-          {available ? "Comprar · Personalizar" : "Personalizar"}
-        </p>
+        {cols === 3 ? (
+          <p className="mt-2 text-right text-[11px] leading-none text-muted-foreground">
+            {formatPrice(product.price)}
+          </p>
+        ) : (
+          <>
+            <div
+              className={cn(
+                "mt-3 flex items-baseline justify-between gap-2",
+                cols === 2 ? "text-xs" : "text-sm",
+              )}
+            >
+              <h3 className="min-w-0 truncate font-normal">{product.name}</h3>
+              <span className="shrink-0">{formatPrice(product.price)}</span>
+            </div>
+            <p
+              className={cn(
+                "mt-1 truncate uppercase text-muted-foreground",
+                cols === 2 ? "text-[10px] tracking-[0.12em]" : "text-[11px] tracking-[0.18em]",
+              )}
+            >
+              {available ? "Comprar · Personalizar" : "Personalizar"}
+            </p>
+          </>
+        )}
       </DialogTrigger>
       <DialogContent className="max-h-[92vh] max-w-md overflow-y-auto overscroll-contain p-4 sm:p-5">
         <ProductGallery product={product} />
@@ -43,7 +72,8 @@ export function ProductCard({ product, eager }: { product: Product; eager?: bool
           )}
           {!available && (
             <p className="px-1 text-center text-xs leading-relaxed text-muted-foreground">
-              Este modelo exacto no está disponible ahora. Personalízalo con las telas y detalles que van contigo.
+              Este modelo exacto ya no está disponible: no quedan las mismas telas ni materiales. Puedes
+              personalizarlo eligiendo las opciones que sí tengo ahora.
             </p>
           )}
           <Button asChild variant={available ? "outline" : "default"} className={buttonCls}>
@@ -56,3 +86,4 @@ export function ProductCard({ product, eager }: { product: Product; eager?: bool
     </Dialog>
   );
 }
+
