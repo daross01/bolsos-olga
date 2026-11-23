@@ -2,6 +2,6 @@
 // whatsappNumber: número con prefijo de país, solo dígitos.
 export const siteConfig = {
   tagline: "Bolsos Olga",
-  whatsappNumber: "34611430568",
-  instagramUrl: "https://instagram.com/",
+  whatsappNumber: "34619951256",
+  instagramUrl: "https://instagram.com/olgarovii",
 };
