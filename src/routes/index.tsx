@@ -63,9 +63,10 @@ function Catalog() {
       </div>
       <div className={cn("grid gap-x-5 gap-y-10 md:gap-x-8", gridCls[cols])}>
         {products.map((p, i) => (
-          <ProductCard key={p.ref} product={p} eager={i < 2} />
+          <ProductCard key={p.ref} product={p} eager={i < 2} cols={cols} />
         ))}
       </div>
     </section>
   );
 }
+
