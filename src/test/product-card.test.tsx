@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { formatPrice, products } from "@/data/products";
 
 const product = (ref: string) => {
   const found = products.find((p) => p.ref === ref);
@@ -47,5 +47,22 @@ describe("tarjeta de producto", () => {
 
     fireEvent.click(screen.getByRole("button", { name: gone.name }));
     expect(screen.getByText(/no quedan las mismas telas/i)).toBeInTheDocument();
+  });
+
+  it("en tres por fila solo muestra el precio, sin nombre ni opciones", () => {
+    const available = product("B002");
+    render(<ProductCard product={available} cols={3} />);
+
+    expect(screen.queryByText(available.name)).toBeNull();
+    expect(screen.queryByText(/comprar\s*·\s*personalizar/i)).toBeNull();
+    expect(screen.getByText(formatPrice(available.price))).toBeInTheDocument();
+  });
+
+  it("en dos por fila mantiene nombre y opciones", () => {
+    const available = product("B002");
+    render(<ProductCard product={available} cols={2} />);
+
+    expect(screen.getByText(available.name)).toBeInTheDocument();
+    expect(screen.getByText(/comprar\s*·\s*personalizar/i)).toBeInTheDocument();
   });
 });
