@@ -30,7 +30,7 @@ describe("catálogo", () => {
     expect(recs.every((r) => r.category === "bolsos" && r.ref !== "B001")).toBe(true);
   });
   it("genera el mensaje de compra con nombre y referencia", () => {
-    expect(buyMessage(b001)).toBe(
+    expect(buyMessage({ ...b001, availability: "disponible" })).toBe(
       "¡Hola! Me gustaría comprar el Bolso tote patchwork teja y beige (ref. B001). ¿Sigue disponible y cómo podemos gestionarlo?",
     );
   });
@@ -70,8 +70,9 @@ describe("controles del CSV", () => {
     expect(applyCatalogCsv([b001], header + "B001;;30;si;no;fotos-b001")).toHaveLength(0);
   });
   it("si y los valores vacíos conservan productos visibles y disponibles", () => {
+    const base = [{ ...b001, availability: "disponible" as const }];
     for (const flags of ["si;si", ";", "SI;SI"]) {
-      const [product] = applyCatalogCsv([b001], header + `B001;;30;${flags};`);
+      const [product] = applyCatalogCsv(base, header + `B001;;30;${flags};`);
       if (!product) throw new Error("El producto debe seguir visible");
       expect(isAvailable(product)).toBe(true);
     }
@@ -93,3 +94,4 @@ describe("controles del CSV", () => {
     expect(products.find((product) => product.ref === "B010")?.price).toBe(25);
   });
 });
+
