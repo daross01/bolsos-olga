@@ -3,5 +3,5 @@
 export const siteConfig = {
   tagline: "Bolsos Olga",
   whatsappNumber: "34619951256",
-  instagramUrl: "https://instagram.com/olgarovii",
+  instagramUrl: "https://instagram.com/olgaroovi",
 };
