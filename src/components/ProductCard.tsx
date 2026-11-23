@@ -72,8 +72,7 @@ export function ProductCard({
           )}
           {!available && (
             <p className="px-1 text-center text-xs leading-relaxed text-muted-foreground">
-              Este modelo exacto ya no está disponible: no quedan las mismas telas ni materiales. Puedes
-              personalizarlo eligiendo las opciones que sí tengo ahora.
+              Este modelo exacto no está disponible ahora. Personalízalo con las telas y detalles que van contigo.
             </p>
           )}
           <Button asChild variant={available ? "outline" : "default"} className={buttonCls}>
